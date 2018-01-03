@@ -1,0 +1,18 @@
+<!-- Dieses Script fragt nochmal nach, ob die Videos wirklich geloescht werden sollen -->
+<html><head></head><body><h1>Aufzeichnung wirklich l&ouml;schen?</h1><p>
+
+<?php
+
+#Uebergebenen Dateinamen auslesen und .mp4 anhaengen
+$datei=$_GET["filename"];
+$dateimp4=$datei.".mp4";
+
+echo "<h2>Soll die folgende Aufzeichnung <b>" .$datei."</b> wirklich <b>unwiderbringlich</b> vom Server gel&ouml;scht werden?<P>
+<a href=\"../gechingen/showmpeg.html?filename=".$dateimp4."\">Link zum Video</a></h2><P>";
+
+echo "<h2><a href=\"./delete.html?filename=".$datei."\">L&ouml;schen</a>";
+echo " | <a href=\"./index.php\">Abbrechen</a></h2>"; 
+
+?>
+
+</body></html>
