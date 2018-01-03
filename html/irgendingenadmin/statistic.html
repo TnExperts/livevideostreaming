@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta http-equiv="refresh" content="120" />
+<title>Zugriffs-Statistiken: Evangelische Kirchengemeinde Gechingen</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+/* Style the header */
+.header {
+    background-color: #f1f1f1;
+    padding: 10px;
+    font-size:100%;
+}
+
+/* Style the content */
+.content {
+    background-color: #ddd;
+    padding: 10px;
+    font-size:80%;
+}
+/* Style the footer */
+.footer {
+    background-color: #f1f1f1;
+    padding: 5px;
+}
+</style>
+</head>
+ 
+<body>
+
+<?php
+
+$file = '../gechingen/counterlive.txt';
+
+$dateihandle = fopen($file,"r");
+$zeile = fgets($dateihandle, 4096);
+
+// Erste Zeile der Datei einlesen u. nach dem Zeichen "||" trennen
+list($h, $g, $w, $m, $j, $gesamt, $rekord, $rekordtime) = explode("||", $zeile);
+
+// Jetzt innerhalb der neuen Variablen nach dem Zeichen ":" trennen
+list ($tagheute, $heute) = explode(":", $h);
+list ($taggestern, $gestern) = explode(":", $g);
+list ($nrwoche, $woche) = explode(":", $w);
+list ($monatzahl, $monat) = explode(":", $m);
+list ($jahrzahl, $jahr) = explode(":", $j);
+
+// Jetzt die Zeilen der Datei lesen und 1 abziehen, da erste Zeile nicht mitgezaehlt wird
+$anzahl = count(file($file));
+$online = $anzahl - 1;
+
+?>
+
+<?php
+
+$fileu = '../gechingen/counter.txt';
+
+$dateihandleu = fopen($fileu,"r");
+$zeileu = fgets($dateihandleu, 4096);
+
+// Erste Zeile der Datei einlesen u. nach dem Zeichen "||" trennen
+list($hu, $gu, $wu, $mu, $ju, $gesamtu, $rekordu, $rekordtimeu) = explode("||", $zeileu);
+
+// Jetzt innerhalb der neuen Variablen nach dem Zeichen ":" trennen
+list ($tagheuteu, $heuteu) = explode(":", $hu);
+list ($taggesternu, $gesternu) = explode(":", $gu);
+list ($nrwocheu, $wocheu) = explode(":", $wu);
+list ($monatzahlu, $monatu) = explode(":", $mu);
+list ($jahrzahlu, $jahru) = explode(":", $ju);
+
+// Jetzt die Zeilen der Datei lesen und 1 abziehen, da erste Zeile nicht mitgezaehlt wird
+$anzahlu = count(file($fileu));
+$onlineu = $anzahlu - 1;
+
+?>
+
+<div class="header">
+  <h2>Zugriffs-Statistik: Online-Streaming der ev. Kirchengemeinde in Gechingen</h2>
+</div>
+
+<div class="content">
+<h4>Statistik:</h4>
+<div class="w3-responsive">
+<table class="w3-table-all w3-small w3-hoverable w3-card-4 w3-left">
+<tr><th>Seite</th><th>Online</th><th>Heute</th><th>Gestern</th><th>Woche</th><th>
+Monat</th><th>Jahr</th><th>Gesamt</th><th>Rekord</th></tr></b>
+<tr><td><a href="../gechingen/livestream.html">Livestream-Seite</td><td><?php echo $online ?></td><td><?php echo $heute ?></td>
+<td><?php echo $gestern ?></td><td><?php echo $woche ?>
+</td><td><?php echo $monat ?></td><td><?php echo $jahr ?></td><td><?php echo $gesamt ?></td><td>
+<?php echo $rekord ?> (<?php echo date("d.m.Y", $rekordtime) ?>)</td></tr>
+<tr><td><a href="../gechingen/index.php">&Uuml;bersichts-Seite</td><td><?php echo $onlineu ?></td><td><?php echo $heuteu ?></td>
+<td><?php echo $gesternu ?></td><td><?php echo  $wocheu ?>
+</td><td><?php echo $monatu ?></td><td><?php echo $jahru ?></td><td><?php echo $gesamtu ?></td><td>
+<?php echo $rekordu ?> (<?php echo date("d.m.Y", $rekordtimeu) ?>)</td></tr>
+</table></div><p>
+
+</body>
