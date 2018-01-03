@@ -1,0 +1,32 @@
+<!-- Dieses Script loescht die uebergebene *.mp4 Datei und dazugehoerige *.flv Datei auf dem Server -->
+<html><head></head><body><h1>Aufzeichnungen werden gel&ouml;scht!</h1><p>
+
+<?php
+#Dieses Script loescht die uebergebene *.mp4 Datei und dazugehoerige *.flv Datei auf dem Server
+
+#Pfade zu den Video Dateiordnern auf dem Server setzen
+$dateimp4_path="/video_recordings/gechingen/".$_GET["filename"].".mp4";
+$dateiflv_path="/video_recordings/gechingen/".$_GET["filename"].".flv";
+
+#Loeschen der Dateien
+if (exec ("nohup rm $dateimp4_path >>/dev/null 2>&1 &")) {
+  echo "<h2><font color='red'>L&ouml;schen der mp4 Aufzeichnung fehlgeschlagen!</font></h2><br>";
+}
+else {
+  echo "<h2>mp4 Aufzeichnung erfolgreich gel&ouml;scht!!</h2><br>";
+}
+
+if (exec ("nohup rm $dateiflv_path >>/dev/null 2>&1 &")) {
+  echo "<h2><font color='red'>L&ouml;schen der flv Aufzeichnung fehlgeschlagen!</font></h2><P>";
+}
+else {
+  echo "<h2>flv Aufzeichnung erfolgreich gel&ouml;scht!</h2><P>";
+}
+
+
+#Zurueck zur Uebersichtsseite
+echo "<h2>Sie werden automatisch zur &Uuml;bersichtsseite weitergeleitet...</h2>";
+echo '<meta http-equiv="refresh" content="2; url=index.php">';
+?>
+
+</body></html>
