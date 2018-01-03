@@ -1,0 +1,29 @@
+<!-- Dieses Script fragt nochmal nach, ob die Videos wirklich geloescht werden sollen -->
+<html><head></head><body><h1>mp4 Datei wird erzeugt ...</h1><p>
+
+<?php
+#Dieses Script erzeugt aus dem uebergebenen Dateinamen eine mp4 Datei
+
+#Pfade zu den Video Dateiordnern auf dem Server 
+$dateimp4_path="/video_recordings/gechingen/".$_GET["filename"].".mp4";
+$dateiflv_path="/video_recordings/gechingen/".$_GET["filename"].".flv";
+
+#Pfad zum ffmpeg Konverter
+$ffmpeg_path="/home/rarents/bin/avconv";
+
+#Erzeugen des mp4
+exec("$ffmpeg_path -y -i $dateiflv_path -c copy -copyts $dateimp4_path >>/dev/null 2>&1 &");
+
+echo "<p><h2>Dieser Vorgang kann bis zu 15 min. dauern (je nach Groesse der Aufzeichnung).<br>
+<ul>
+<li>Es kann immer nur ein Konvertierungsprozess laufen, daher sind alle weiteren Konvertierungen so lange gesperrt,<br> 
+bis dieser Vorgang abgeschlossen ist.</li>
+<li>Sie werden in wenigen Sekunden automatisch zur Uebersichtsseite weitergeleitet.</li>
+</ul>
+</h2>";
+
+
+#Zurueck zur Uebersichtsseite
+echo '<meta http-equiv="refresh" content="2; url=index.php">';
+?>
+</body></html>
