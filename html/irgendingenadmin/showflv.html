@@ -1,0 +1,37 @@
+<!doctype html>
+<head>
+  <title>Aufzeichnung: Gottesdienst der Kirche in Gechingen</title>
+  <link rel="stylesheet" href="//releases.flowplayer.org/6.0.5/skin/minimalist.css">
+  <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+  <script src="//releases.flowplayer.org/6.0.5/flowplayer.min.js"></script>
+</head>
+
+<?php
+function get_browser_name($user_agent)
+{
+    if (strpos($user_agent, 'Opera') || strpos($user_agent, 'OPR/')) return 'Opera';
+    elseif (strpos($user_agent, 'Edge')) return 'Edge';
+    elseif (strpos($user_agent, 'Chrome')) return 'Chrome';
+    elseif (strpos($user_agent, 'Safari')) return 'Safari';
+    elseif (strpos($user_agent, 'Firefox')) return 'Firefox';
+    elseif (strpos($user_agent, 'MSIE') || strpos($user_agent, 'Trident/7')) return 'Internet Explorer';
+    
+    return 'Other';
+}
+
+$browser = get_browser_name($_SERVER['HTTP_USER_AGENT']);
+
+if ($browser=="Edge") {
+ header("Location: http://rk-solutions-stream.de/gechingen/aufzeichnung-edge.html");
+}
+?>
+
+<body>
+  <div class="flowplayer">
+    <video autoplay data-title="Autoplay">
+    <video>
+      <source type="video/flv"
+              src="http://rk-solutions-stream.de/gechingenstreams/<?php echo $_GET["filename"]; ?>">
+      </video>
+  </div>
+</body>
