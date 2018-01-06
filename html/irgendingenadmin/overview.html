@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta http-equiv="refresh" content="120" />
+<title>Status-Uebersichtsseite</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+/* Style the header */
+.header {
+    background-color: #f1f1f1;
+    padding: 10px;
+    font-size:100%;
+}
+
+/* Style the content */
+.content {
+    background-color: #ddd;
+    padding: 10px;
+    font-size:80%;
+}
+/* Style the footer */
+.footer {
+    background-color: #f1f1f1;
+    padding: 5px;
+}
+</style>
+</head>
+ 
+<body>
+
+<div class="header">
+  <h2>Kirchenstreaming - Allgemeine &Uuml;bersichtsseite</h2>
+</div>
+
+<div class="content">
+<h4>Status:</h4>
+<div class="w3-responsive">
+<table class="w3-table-all w3-small w3-hoverable w3-card-4 w3-left">
+<tr><th>Kirchengemeinde</th><th>Status</th><th>Admin-Seite</th><th>Statistik</th></tr></b>
+
+<tr><td><a href="../bondorf/index.php">Bondorf</a></td>
+<td>
+<?php
+exec("/home/rarents/bin/ffprobe -i http:\/\/rk-solutions-stream.de/live/test/index.m3u8 -v quiet -print_format json -show_format -show_streams -hide_banner > temp_file_bondorf", $output, $res);
+$info = json_decode(file_get_contents("temp_file_bondorf"));
+
+$videocodec = $info->streams[0]->codec_name;
+
+if($videocodec == "h264") 
+   {
+  echo"<a href=\"../bondorf/livestream.html\"><img src=\"../images/livegreen.png\" title=\"Live Stream\" width=\"20\" height=\"20\"></a>";
+   }
+else 
+   {
+   echo"<a href=\"../bondorf/livestream.html\"><img src=\"../images/offline.png\" title=\"Momentan findet keine Live &Uuml;bertragung statt\" width=\"20\" height=\"20\"></a>";
+   }
+?>
+</td>
+<td><a href="../bondorfadmin/index.php">Link</a></td>
+<td><a href="../bondorfadmin/statistic.html">Statistik</a></td>
+</tr>
+
+<tr><td><a href="../gechingen/index.php">Gechingen</a></td>
+<td>
+<?php
+exec("/home/rarents/bin/ffprobe -i http:\/\/rk-solutions-stream.de/livegecho/test/index.m3u8 -v quiet -print_format json -show_format -show_streams -hide_banner > temp_file_gechingen", $output, $res);
+$info = json_decode(file_get_contents("temp_file_gechingen"));
+
+$videocodec = $info->streams[0]->codec_name;
+
+if($videocodec == "h264")
+   {
+  echo"<a href=\"../gechingen/livestream.html\"><img src=\"../images/livegreen.png\" title=\"Live Stream\" width=\"20\" height=\"20\"></a> &nbsp;<a href=\"../gechingen/livestream.html\">Live Stream</a> &nbsp; ";
+   }
+else
+   {
+   echo"<a href=\"../gechingen/livestream.html\"><img src=\"../images/offline.png\" title=\"Momentan findet keine Live &Uuml;bertragung statt\" width=\"20\" height=\"20\"></a>";
+   }
+?>
+</td>
+<td><a href="../gechingenadmin/index.php">Link</a></td>
+<td><a href="../gechingenadmin/statistic.html">Statistik</a></td>
+</tr>
+
+<tr><td><a href="../irgendingen/index.php">Irgendingen</a></td>
+<td>
+<?php
+exec("/home/rarents/bin/ffprobe -i http:\/\/rk-solutions-stream.de/liveirgendingen/test/index.m3u8 -v quiet -print_format json -show_format -show_streams -hide_banner > temp_file_irgendingen", $output, $res);
+$info = json_decode(file_get_contents("temp_file_irgendingen"));
+
+$videocodec = $info->streams[0]->codec_name;
+
+if($videocodec == "h264")
+   {
+  echo"<a href=\"../irgendingen/livestream.html\"><img src=\"../images/livegreen.png\" title=\"Live Stream\" width=\"20\" height=\"20\"></a> &nbsp;<a href=\"../irgendingen/livestream.html\">Live Stream</a> &nbsp; ";
+   }
+else
+   {
+   echo"<a href=\"../irgendingen/livestream.html\"><img src=\"../images/offline.png\" title=\"Momentan findet keine Live &Uuml;bertragung statt\" width=\"20\" height=\"20\"></a>";
+   }
+?>
+</td>
+<td><a href="../irgendingenadmin/index.php">Link</a></td>
+<td><a href="../irgendingenadmin/statistic.html">Statistik</a></td>
+</tr>
+
+</table></div><p>
+
+</body>
